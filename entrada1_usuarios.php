@@ -2,8 +2,10 @@
 
 session_start();
 //validacao de entrada indevidad
+//VERIFICA SE O METODO DE ENVIO E POST SE FOR CONTINUA 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     header('Location: index.php');
+    
     die('Sua entrada foi feita de maneira incorreta');
 }
 
@@ -12,7 +14,7 @@ include_once 'conexao_pdo.php';
 
 
 
-
+//COMECO DA INCERCAO NO BANCO
 $filtrar = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 if(!empty($filtrar['cadatrar'])){
@@ -33,7 +35,22 @@ try{
         'erro' => ''
     ];
 
+     //verificando se o login nao existe
+     $consu = $pdo->prepare('select * from usuario where email = :email');
+     $consu->execute(['email' => $filtrar['email']]);
+     $respo = $consu->fetch();
 
+     if($respo){
+         echo 'o login ja existe';
+         header('location: index.php');
+         $inputs['senha']['erro'] = 'o email colocado ja possui um login';
+         $_SESSION['inputs'] = $inputs;
+         die('esse email ja esta cadastreado');
+     }else{
+        
+  
+
+    //VERIFICAOCAO SE A SENHA ENVIADA SEGUE OS AREAMENTROS ESIGIDOS
     if(empty($filtrar['senha'])){
         $inputs['senha']['erro'] = 'o camo pricisa ser preenchida';
     }else{
@@ -47,12 +64,13 @@ try{
         header('location: index.php');
     }else{
         $add_usuarios -> execute();
-    }
+        }
+        
  
     
     echo 'registro feito';
     
-    header('location: index.php');
+}
 }catch(PDOException $e){
 
         echo 'ouve um erro'. $e->getMessage();
@@ -62,18 +80,5 @@ try{
 }
 
 
-//$sql = "insert into usert (nome, email) values (:nome, :email);";
 
-//try{
-
-
-//$conec = $pdo->prepare($sql);
-//$conec->bindParam(':nome', $nome);
-//$conec->bindParam(':email', $email);
-
-//$conec -> execute();
-//echo 'registro feito';
-//}catch (PDOException $e){
-   // echo 'ouve um erro'. $e->getMessage();
-//}
 ?>
