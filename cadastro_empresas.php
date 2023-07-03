@@ -8,18 +8,17 @@ $filtrar2 = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if(!empty($filtrar['cadatrar'])){
 
 try{
-    $sql2 = "insert into empresas (nome,email,senha) values (:nome, :email, :senha)";
+    $sql2 = "insert into empresas (nome,funcao,descricao,requisitos,contato,cnpj,endereco,faixa_salario) values (:nome,:funcao,:descricao,:requisitos,:contato,:cnpj,:endereco,:faixa_salario)";
 
     $add_usuarios2 = $pdo->prepare($sql2);
     $add_usuarios2->bindParam(':nome', $filtrar2['nome'], PDO::PARAM_STR);
-    $add_usuarios2->bindParam(':email', $filtrar2['email'], PDO::PARAM_STR);
-    $add_usuarios2->bindParam(':senha', $filtrar2['senha'], PDO::PARAM_STR);
-    $add_usuarios2->bindParam(':data_nasc', $filtrar2['data_nasc'], PDO::PARAM_STR);
-    $add_usuarios2->bindParam(':telefone', $filtrar2['telefone'], PDO::PARAM_STR);
-    $add_usuarios2->bindParam(':cpf', $filtrar2['cpf'], PDO::PARAM_STR);
-
-    $add_usuarios2->bindParam(':renda', $filtrar2['renda'], PDO::PARAM_STR);
-
+    $add_usuarios2->bindParam(':funcao', $filtrar2['funcao'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':descricao', $filtrar2['descricao'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':requisitos', $filtrar2['requisitos'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':contato', $filtrar2['contato'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':cnpj', $filtrar2['cnpj'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':endereco', $filtrar2['endereco'], PDO::PARAM_STR);
+    $add_usuarios2->bindParam(':faixa_salario', $filtrar2['faixa_salario'], PDO::PARAM_STR);
     
  
     $add_usuarios->execute();

@@ -5,7 +5,7 @@ session_start();
 //VERIFICA SE O METODO DE ENVIO E POST SE FOR CONTINUA 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     header('Location: index.php');
-    
+
     die('Sua entrada foi feita de maneira incorreta');
 }
 
@@ -19,7 +19,7 @@ $filtrar = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 if(!empty($filtrar['cadatrar'])){
     
-    $filtrar['senha_conf'];
+
 
 try{
     $sql = "INSERT INTO usuario(nome,email,senha)VALUES(:nome,:email,:senha)";
@@ -28,6 +28,8 @@ try{
     $add_usuarios->bindParam(':nome', $filtrar['nome'], PDO::PARAM_STR);
     $add_usuarios->bindParam(':email', $filtrar['email'], PDO::PARAM_STR);
     $add_usuarios->bindParam(':senha', $filtrar['senha'], PDO::PARAM_STR);
+
+    echo $filtrar['nome'];
    
     $inputs = [];
 
@@ -49,13 +51,7 @@ try{
          die('esse email ja esta cadastreado');
      }else{
         
-    if($filtrar['senha'] != $filtrar['senha_conf']){
-        echo 'o login ja existe';
-         header('location: index.php');
-         $inputs['senha']['erro'] = 'A senha esta diferente confirme de maneira correta';
-         $_SESSION['inputs'] = $inputs;
-         die('A senha esta diferente confirme de maneira correta');
-    }
+    
   
 
     //VERIFICAOCAO SE A SENHA ENVIADA SEGUE OS AREAMENTROS ESIGIDOS

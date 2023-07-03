@@ -1,28 +1,8 @@
-
 <?php 
-session_start();
 
-$inputs = [];
-if(isset($_SESSION['inputs'])){
-    $inputs = $_SESSION['inputs'];
-    unset($_SESSION['inputs']);
-}
 
-function show_error($campo){
-  global $inputs;
-  if(key_exists($campo,$inputs)){
-      if(!empty($inputs[$campo])){
-          return '<span>'.$inputs[$campo]['erro'].'</span>';
-      }else {
-          return '';
-      }
-  }else{
-      return '';
-  }
-}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -30,14 +10,14 @@ function show_error($campo){
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.google.com/specimen/Archivo+Black" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
     
-    <title>Cadastro</title>
+    <title>Login</title>
   </head>
   <body>
 
     <style>
-  
 * {
   margin: 0;
   padding: 0;
@@ -56,7 +36,10 @@ body {
 	place-items: center;
 	text-align: center;
   font-size: 1.6em;
+
 }
+  
+
 
 .container {
   display: flex;
@@ -107,7 +90,6 @@ h1{
 
 .label-float label{
   color: #01161e;
-
   position: absolute;
   top: 0;
   left: 0;
@@ -186,7 +168,7 @@ a:hover{
   display: none;
 }
 .wrapper {
-
+  
 	max-width: 1100px;
 	margin: 0 auto;
 	position: relative;
@@ -287,10 +269,10 @@ header {
 		align-items: center;
 	}
 }
+
     </style>
 
 <header>
-
   <div class="wrapper row">
     <button class="nav-toggle">
       <span class="icon-area"></span>
@@ -307,49 +289,41 @@ header {
   </div>
 </header>
 
-<div class="container">
-  <div class="card">
-    <h1>Cadastrar</h1>
+    <div class="container">
+      <div class="card">
+        <h1>Entrar</h1>
 
-    <div id="msgError"></div>
+        <div id="msgError"></div>
+        <form action="consulta_login.php" method="post">        
 
-    <form action="entrada1_usuarios.php" method="post">
+        <div class="label-float">
+          <input type="email" id="usuario" paceholder="" required name="email"/>
+          <label id="userLabel" for="usuario">Email</label>
+        </div>
 
-    <div class="label-float">
-      <input type="text" id="Nome" paceholder="" required name="nome"/>
-      <label id="userLabel" for="Nome">Nome</label>
+        <div class="label-float">
+          <input type="password" id="senha" paceholder="" required name="senha"/>
+          <label id="senhaLabel" for="senha">Senha</label>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
+
+        <div class="justify-center">
+          <a href="index2.html">
+          <input type="submit" value="entrar">
+         </a>
+        </div>
+        </form>        
+
+        
+
+        <p>
+          Não tem uma conta?
+          <a href="./cadastro.html">
+            Cadastre-se
+          </a>
+        </p>
+      </div>
     </div>
-
-    <div class="label-float">
-      <input type="email" id="E-mail" paceholder="" required  name="email"/>
-      <label id="userLabel" for="E-mail">E-mail</label>
-    </div>
-
-    <div class="label-float">
-      <input type="password" id="senha" paceholder="" required name="senha"/>
-      <label id="senhaLabel" for="senha">Senha</label>
-      <i class="fa fa-eye" aria-hidden="true"></i>
-    </div>
-
-    <?php echo "<span>".show_error('senha')."</span>" ?>
-
-    <div class="justify-center">
-      <input type="submit" value="Cadastro" class="sub" name="cadatrar">
-    </div>
-</form>    
-
-    <div class="justify-center">
-     
-    </div>
-
-    <p>
-      Já tem uma conta?
-      <a href="login.php">
-        Faça seu Login
-      </a>
-    </p>
-  </div>
-</div>
 
     <script>
       const cusMenu = document.querySelector(".nav-toggle");
@@ -360,5 +334,4 @@ header {
       });
     </script>
   </body>
- 
 </html>
